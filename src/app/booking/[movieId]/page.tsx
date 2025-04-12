@@ -119,7 +119,7 @@ export default function BookingPage() {
               <img
                 src={`/posters/${movie.posterUrl}`}
                 alt={movie.title}
-                className="w-full h-48 object-cover rounded-md mb-2"
+                className="w-48 h-72 object-cover rounded-md mb-2"
               />
             <div>
               <Label htmlFor="showtime">Showtime</Label>

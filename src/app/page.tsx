@@ -98,7 +98,7 @@ export default function Home() {
                   <img
                     src={`/posters/${movie.posterUrl}`}
                     alt={movie.title}
-                    className="w-full h-48 object-cover rounded-md mb-2"
+                    className="w-48 h-72 object-cover rounded-md mb-2"
                   />
                   <h3 className="text-lg font-semibold">{movie.title}</h3>
                   <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
@@ -121,7 +121,7 @@ export default function Home() {
                   <img
                     src={`/posters/${movie.posterUrl}`}
                     alt={movie.title}
-                    className="w-full h-48 object-cover rounded-md mb-2"
+                    className="w-48 h-72 object-cover rounded-md mb-2"
                   />
                   <h3 className="text-lg font-semibold">{movie.title}</h3>
                   <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
@@ -144,7 +144,7 @@ export default function Home() {
                   <img
                     src={`/posters/${movie.posterUrl}`}
                     alt={movie.title}
-                    className="w-full h-48 object-cover rounded-md mb-2"
+                    className="w-48 h-72 object-cover rounded-md mb-2"
                   />
                   <h3 className="text-lg font-semibold">{movie.title}</h3>
                   <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
@@ -167,7 +167,7 @@ export default function Home() {
               <img
                 src={`/posters/${selectedMovie.posterUrl}`}
                 alt={selectedMovie.title}
-                className="w-full h-48 object-cover rounded-md mb-2"
+                className="w-48 h-72 object-cover rounded-md mb-2"
               />
               <p>Genre: {selectedMovie.genre}</p>
               <p>Available Showtimes: {selectedMovie.showtimes.join(', ')}</p>
