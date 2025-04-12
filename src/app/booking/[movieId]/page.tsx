@@ -18,7 +18,8 @@ export default function BookingPage() {
   const [movie, setMovie] = useState<Movie | null>(null);
   const [selectedShowtime, setSelectedShowtime] = useState<string | null>(null);
   const [numberOfTickets, setNumberOfTickets] = useState<number>(1);
-  const [bookingSummary, setBookingSummary] = useState<any>(null); // replace any with Booking type
+  const [bookingSummary, setBookingSummary] = useState<any>(null);
+  const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
 
   useEffect(() => {
     const loadMovie = async () => {
@@ -44,14 +45,15 @@ export default function BookingPage() {
   };
 
   const handleBookTickets = async () => {
-    if (movie && selectedShowtime) {
+    if (movie && selectedShowtime && selectedSeats.length > 0) {
       try {
-        const booking = await bookTickets(movie.id, selectedShowtime, numberOfTickets);
+        const booking = await bookTickets(movie.id, selectedShowtime, selectedSeats.length);
         setBookingSummary(booking);
         toast({
           title: 'Success',
           description: 'Booking successful!',
         });
+        router.push('/'); // Redirect to home page after booking
       } catch (error) {
         console.error('Booking failed:', error);
         toast({
@@ -63,10 +65,34 @@ export default function BookingPage() {
     } else {
       toast({
         title: 'Warning',
-        description: 'Please select a movie and showtime.',
+        description: 'Please select a movie, showtime, and seats.',
       });
     }
   };
+
+  const handleSeatSelection = (seatNumber: string) => {
+    if (selectedSeats.includes(seatNumber)) {
+      setSelectedSeats(selectedSeats.filter((seat) => seat !== seatNumber));
+    } else {
+      setSelectedSeats([...selectedSeats, seatNumber]);
+    }
+  };
+
+  const generateSeats = () => {
+    const rows = 10;
+    const seatsPerRow = 12;
+    const seats = [];
+
+    for (let i = 1; i <= rows; i++) {
+      for (let j = 1; j <= seatsPerRow; j++) {
+        const seatNumber = `${String.fromCharCode(64 + i)}${j}`;
+        seats.push(seatNumber);
+      }
+    }
+    return seats;
+  };
+
+  const seats = generateSeats();
 
   if (!movie) {
     return (
@@ -105,24 +131,58 @@ export default function BookingPage() {
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Label htmlFor="tickets">Number of Tickets</Label>
-              <Input
-                type="number"
-                id="tickets"
-                min="1"
-                value={numberOfTickets}
-                onChange={handleTicketNumberChange}
-              />
+          </CardContent>
+        </Card>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-xl font-semibold mb-2">Select Seats</h2>
+        <Card>
+          <CardHeader>
+            <CardTitle>Seating Arrangement</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex justify-center mb-4">
+              <div className="bg-red-500 text-white p-2 rounded">Screen is this way</div>
+            </div>
+            <div className="grid grid-cols-12 gap-2">
+              {seats.map((seatNumber) => (
+                <button
+                  key={seatNumber}
+                  onClick={() => handleSeatSelection(seatNumber)}
+                  className={`w-6 h-6 rounded-md flex items-center justify-center
+                    ${selectedSeats.includes(seatNumber) ? 'bg-red-500 text-white' : 'bg-gray-300 text-gray-700'}
+                    ${Math.random() > 0.7 ? 'bg-gray-500 text-white cursor-not-allowed' : ''}
+                  `}
+                  disabled={Math.random() > 0.7} // Simulate reserved seats
+                >
+                  {seatNumber}
+                </button>
+              ))}
+            </div>
+            <div className="mt-4 flex justify-around">
+              <div>
+                <div className="w-6 h-6 rounded-md bg-gray-300 inline-block mr-1"></div>
+                <span>Available</span>
+              </div>
+              <div>
+                <div className="w-6 h-6 rounded-md bg-gray-500 inline-block mr-1"></div>
+                <span>Reserved</span>
+              </div>
+              <div>
+                <div className="w-6 h-6 rounded-md bg-red-500 text-white inline-block mr-1"></div>
+                <span>Selected</span>
+              </div>
             </div>
           </CardContent>
           <CardFooter>
-            <Button onClick={handleBookTickets}>Book Tickets</Button>
+            <Button onClick={handleBookTickets} disabled={selectedSeats.length === 0}>
+              Book Tickets
+            </Button>
           </CardFooter>
         </Card>
       </section>
 
-      {/* Booking Summary */}
       {bookingSummary && (
         <section>
           <h2 className="text-xl font-semibold mb-2">Booking Summary</h2>
@@ -134,6 +194,7 @@ export default function BookingPage() {
               <p>Movie: {movie.title}</p>
               <p>Showtime: {bookingSummary.showtime}</p>
               <p>Number of Tickets: {bookingSummary.numberOfTickets}</p>
+              <p>Seats: {selectedSeats.join(', ')}</p>
             </CardContent>
             <CardFooter>
               <p className="text-lg font-semibold">Total Cost: ${bookingSummary.totalCost}</p>
