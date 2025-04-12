@@ -116,6 +116,11 @@ export default function BookingPage() {
             <CardTitle>{movie.title}</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4">
+              <img
+                src={`/posters/${movie.posterUrl}`}
+                alt={movie.title}
+                className="w-full h-48 object-cover rounded-md mb-2"
+              />
             <div>
               <Label htmlFor="showtime">Showtime</Label>
               <Select onValueChange={handleShowtimeSelection}>
@@ -132,6 +137,11 @@ export default function BookingPage() {
               </Select>
             </div>
           </CardContent>
+          <CardFooter>
+            <Button onClick={handleBookTickets} disabled={selectedSeats.length === 0}>
+              Book Tickets
+            </Button>
+          </CardFooter>
         </Card>
       </section>
 
@@ -175,11 +185,6 @@ export default function BookingPage() {
               </div>
             </div>
           </CardContent>
-          <CardFooter>
-            <Button onClick={handleBookTickets} disabled={selectedSeats.length === 0}>
-              Book Tickets
-            </Button>
-          </CardFooter>
         </Card>
       </section>
 

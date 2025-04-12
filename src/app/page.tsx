@@ -96,7 +96,7 @@ export default function Home() {
                   onClick={() => handleMovieSelection(movie.id)}
                 >
                   <img
-                    src={movie.posterUrl}
+                    src={`/posters/${movie.posterUrl}`}
                     alt={movie.title}
                     className="w-full h-48 object-cover rounded-md mb-2"
                   />
@@ -119,7 +119,7 @@ export default function Home() {
                   onClick={() => handleMovieSelection(movie.id)}
                 >
                   <img
-                    src={movie.posterUrl}
+                    src={`/posters/${movie.posterUrl}`}
                     alt={movie.title}
                     className="w-full h-48 object-cover rounded-md mb-2"
                   />
@@ -142,7 +142,7 @@ export default function Home() {
                   onClick={() => handleMovieSelection(movie.id)}
                 >
                   <img
-                    src={movie.posterUrl}
+                    src={`/posters/${movie.posterUrl}`}
                     alt={movie.title}
                     className="w-full h-48 object-cover rounded-md mb-2"
                   />
@@ -165,7 +165,7 @@ export default function Home() {
             </CardHeader>
             <CardContent className="grid gap-4">
               <img
-                src={selectedMovie.posterUrl}
+                src={`/posters/${selectedMovie.posterUrl}`}
                 alt={selectedMovie.title}
                 className="w-full h-48 object-cover rounded-md mb-2"
               />
