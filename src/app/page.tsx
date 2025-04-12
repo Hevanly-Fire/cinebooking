@@ -32,7 +32,7 @@ export default function Home() {
         try {
           const {suggestions} = await suggestSimilarMovies({
             title: selectedMovie.title,
-            genre: 'Action', // Replace with actual genre if available
+            genre: selectedMovie.genre,
             actors: 'Unknown', // Replace with actual actors if available
             keywords: selectedMovie.title, // Using title as keyword for simplicity
           });
@@ -101,6 +101,7 @@ export default function Home() {
                 alt={selectedMovie.title}
                 className="w-full h-48 object-cover rounded-md mb-2"
               />
+              <p>Genre: {selectedMovie.genre}</p>
               <p>Available Showtimes: {selectedMovie.showtimes.join(', ')}</p>
             </CardContent>
             <CardFooter>
