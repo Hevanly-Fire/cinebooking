@@ -9,12 +9,14 @@ import {toast} from '@/hooks/use-toast';
 import {Toaster} from '@/components/ui/toaster';
 import {Loader2} from 'lucide-react';
 import Link from 'next/link';
+import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [similarMovies, setSimilarMovies] = useState<string[]>([]);
   const [isLoadingSimilarMovies, setIsLoadingSimilarMovies] = useState(false);
+  const [activeTab, setActiveTab] = useState('available');
 
   useEffect(() => {
     const loadMovies = async () => {
@@ -60,32 +62,98 @@ export default function Home() {
     setSelectedMovie(movie || null);
   };
 
+  const filteredMovies = movies.filter((movie) => {
+    if (activeTab === 'available') {
+      return movie.category === 'available';
+    } else if (activeTab === 'coming') {
+      return movie.category === 'coming';
+    } else if (activeTab === 'blockbuster') {
+      return movie.category === 'blockbuster';
+    }
+    return true;
+  });
+
   return (
     <div className="container mx-auto px-4 py-8">
       <Toaster />
       <h1 className="text-2xl font-bold mb-4">CineBook</h1>
 
-      {/* Movie Listings */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Available Movies</h2>
-        <div className="flex overflow-x-auto space-x-4">
-          {movies.map((movie) => (
-            <div
-              key={movie.id}
-              className="w-64 min-w-64 cursor-pointer"
-              onClick={() => handleMovieSelection(movie.id)}
-            >
-              <img
-                src={movie.posterUrl}
-                alt={movie.title}
-                className="w-full h-48 object-cover rounded-md mb-2"
-              />
-              <h3 className="text-lg font-semibold">{movie.title}</h3>
-              <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-4">
+        <TabsList>
+          <TabsTrigger value="available">Available Movies</TabsTrigger>
+          <TabsTrigger value="coming">Coming Soon</TabsTrigger>
+          <TabsTrigger value="blockbuster">Blockbusters</TabsTrigger>
+        </TabsList>
+        <TabsContent value="available" className="p-0">
+          {/* Movie Listings */}
+          <section className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">Available Movies</h2>
+            <div className="flex overflow-x-auto space-x-4">
+              {filteredMovies.map((movie) => (
+                <div
+                  key={movie.id}
+                  className="w-64 min-w-64 cursor-pointer"
+                  onClick={() => handleMovieSelection(movie.id)}
+                >
+                  <img
+                    src={movie.posterUrl}
+                    alt={movie.title}
+                    className="w-full h-48 object-cover rounded-md mb-2"
+                  />
+                  <h3 className="text-lg font-semibold">{movie.title}</h3>
+                  <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
+        </TabsContent>
+        <TabsContent value="coming" className="p-0">
+          {/* Coming Soon Listings */}
+          <section className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">Coming Soon</h2>
+            <div className="flex overflow-x-auto space-x-4">
+              {filteredMovies.map((movie) => (
+                <div
+                  key={movie.id}
+                  className="w-64 min-w-64 cursor-pointer"
+                  onClick={() => handleMovieSelection(movie.id)}
+                >
+                  <img
+                    src={movie.posterUrl}
+                    alt={movie.title}
+                    className="w-full h-48 object-cover rounded-md mb-2"
+                  />
+                  <h3 className="text-lg font-semibold">{movie.title}</h3>
+                  <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </TabsContent>
+        <TabsContent value="blockbuster" className="p-0">
+          {/* Blockbuster Listings */}
+          <section className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">Blockbusters</h2>
+            <div className="flex overflow-x-auto space-x-4">
+              {filteredMovies.map((movie) => (
+                <div
+                  key={movie.id}
+                  className="w-64 min-w-64 cursor-pointer"
+                  onClick={() => handleMovieSelection(movie.id)}
+                >
+                  <img
+                    src={movie.posterUrl}
+                    alt={movie.title}
+                    className="w-full h-48 object-cover rounded-md mb-2"
+                  />
+                  <h3 className="text-lg font-semibold">{movie.title}</h3>
+                  <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </TabsContent>
+      </Tabs>
 
       {selectedMovie && (
         <section className="mb-8">
