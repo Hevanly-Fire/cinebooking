@@ -3,7 +3,7 @@
 import {useEffect, useState} from 'react';
 import {getMovies, Movie} from '@/services/movie-listings';
 import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter} from '@/components/ui/card';
 import {suggestSimilarMovies} from '@/ai/flows/suggest-similar-movies';
 import {toast} from '@/hooks/use-toast';
 import {Toaster} from '@/components/ui/toaster';
