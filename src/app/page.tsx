@@ -10,7 +10,6 @@ import {Toaster} from '@/components/ui/toaster';
 import {Loader2} from 'lucide-react';
 import Link from 'next/link';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
-import { useSession, signOut } from "next-auth/react";
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -18,7 +17,6 @@ export default function Home() {
   const [similarMovies, setSimilarMovies] = useState<string[]>([]);
   const [isLoadingSimilarMovies, setIsLoadingSimilarMovies] = useState(false);
   const [activeTab, setActiveTab] = useState(MovieCategory.AVAILABLE);
-  const { data: session } = useSession();
 
   useEffect(() => {
     const loadMovies = async () => {
@@ -71,21 +69,6 @@ export default function Home() {
       <Toaster />
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold">CineBook</h1>
-        {session ? (
-          <div className="flex items-center space-x-4">
-            <span>{session?.user?.email}</span>
-            <Button variant="outline" size="sm" onClick={() => signOut()}>
-              Logout
-            </Button>
-          </div>
-        ) : (
-          <div>
-            <Link href="/login" className="mr-4">
-              Login
-            </Link>
-            <Link href="/register">Register</Link>
-          </div>
-        )}
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-4">
