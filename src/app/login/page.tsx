@@ -40,6 +40,7 @@ const Login = () => {
       });
       router.push("/");
     } catch (error: any) {
+      console.error("Login error:", error);
       toast({
         title: "Error",
         description: error.message || "An error occurred during login",
