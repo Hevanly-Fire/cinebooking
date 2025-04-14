@@ -64,20 +64,7 @@ export default function Home() {
     setSelectedMovie(movie || null);
   };
 
-  const filteredMovies = movies.filter((movie) => {
-    if (activeTab === MovieCategory.AVAILABLE) {
-      return movie.category === MovieCategory.AVAILABLE;
-    } else if (activeTab === MovieCategory.COMING) {
-      return movie.category === MovieCategory.COMING;
-    } else if (activeTab === MovieCategory.BLOCKBUSTER) {
-      return movie.category === MovieCategory.BLOCKBUSTER;
-    } else if (activeTab === MovieCategory.HOLLYWOOD) {
-      return movie.category === MovieCategory.HOLLYWOOD
-    } else if (activeTab === MovieCategory.BOLLYWOOD) {
-      return movie.category === MovieCategory.BOLLYWOOD
-    }
-    return true;
-  });
+  const filteredMovies = (category: MovieCategory) => movies.filter(movie => movie.category === category);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -106,25 +93,34 @@ export default function Home() {
           <TabsTrigger value={MovieCategory.AVAILABLE}>Available Movies</TabsTrigger>
           <TabsTrigger value={MovieCategory.COMING}>Coming Soon</TabsTrigger>
           <TabsTrigger value={MovieCategory.BLOCKBUSTER}>Blockbusters</TabsTrigger>
-           <TabsTrigger value={MovieCategory.HOLLYWOOD}>Hollywood</TabsTrigger>
-            <TabsTrigger value={MovieCategory.BOLLYWOOD}>Bollywood</TabsTrigger>
         </TabsList>
         <TabsContent value={MovieCategory.AVAILABLE} className="p-0">
-          {/* Movie Listings */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-2">Available Movies</h2>
-            <div className="flex overflow-x-auto space-x-4">
-              {filteredMovies.map((movie) => (
-                <div
-                  key={movie.id}
-                  className="w-64 min-w-64 cursor-pointer"
-                  onClick={() => handleMovieSelection(movie.id)}
-                >
-                  <img
-                    src={`/posters/${movie.posterUrl}`}
-                    alt={movie.title}
-                    className="w-48 h-72 object-cover rounded-md mb-2"
-                  />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredMovies(MovieCategory.AVAILABLE).map((movie) => (
+                <div key={movie.id} className="cursor-pointer" onClick={() => handleMovieSelection(movie.id)}>
+                  <img src={`/posters/${movie.posterUrl}`} alt={movie.title} className="w-full h-auto rounded-md mb-2" />
+                  <h3 className="text-lg font-semibold">{movie.title}</h3>
+                  <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
+                </div>
+              ))}
+            </div>
+             <h2 className="text-xl font-semibold mb-2 mt-4">Hollywood Movies</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredMovies(MovieCategory.HOLLYWOOD).map((movie) => (
+                <div key={movie.id} className="cursor-pointer" onClick={() => handleMovieSelection(movie.id)}>
+                  <img src={`/posters/${movie.posterUrl}`} alt={movie.title} className="w-full h-auto rounded-md mb-2" />
+                  <h3 className="text-lg font-semibold">{movie.title}</h3>
+                  <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
+                </div>
+              ))}
+            </div>
+             <h2 className="text-xl font-semibold mb-2 mt-4">Bollywood Movies</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredMovies(MovieCategory.BOLLYWOOD).map((movie) => (
+                <div key={movie.id} className="cursor-pointer" onClick={() => handleMovieSelection(movie.id)}>
+                  <img src={`/posters/${movie.posterUrl}`} alt={movie.title} className="w-full h-auto rounded-md mb-2" />
                   <h3 className="text-lg font-semibold">{movie.title}</h3>
                   <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
                 </div>
@@ -133,21 +129,12 @@ export default function Home() {
           </section>
         </TabsContent>
         <TabsContent value={MovieCategory.COMING} className="p-0">
-          {/* Coming Soon Listings */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-2">Coming Soon</h2>
-            <div className="flex overflow-x-auto space-x-4">
-              {filteredMovies.map((movie) => (
-                <div
-                  key={movie.id}
-                  className="w-64 min-w-64 cursor-pointer"
-                  onClick={() => handleMovieSelection(movie.id)}
-                >
-                  <img
-                    src={`/posters/${movie.posterUrl}`}
-                    alt={movie.title}
-                    className="w-48 h-72 object-cover rounded-md mb-2"
-                  />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredMovies(MovieCategory.COMING).map((movie) => (
+                <div key={movie.id} className="cursor-pointer" onClick={() => handleMovieSelection(movie.id)}>
+                  <img src={`/posters/${movie.posterUrl}`} alt={movie.title} className="w-full h-auto rounded-md mb-2" />
                   <h3 className="text-lg font-semibold">{movie.title}</h3>
                   <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
                 </div>
@@ -156,67 +143,12 @@ export default function Home() {
           </section>
         </TabsContent>
         <TabsContent value={MovieCategory.BLOCKBUSTER} className="p-0">
-          {/* Blockbuster Listings */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-2">Blockbusters</h2>
-            <div className="flex overflow-x-auto space-x-4">
-              {filteredMovies.map((movie) => (
-                <div
-                  key={movie.id}
-                  className="w-64 min-w-64 cursor-pointer"
-                  onClick={() => handleMovieSelection(movie.id)}
-                >
-                  <img
-                    src={`/posters/${movie.posterUrl}`}
-                    alt={movie.title}
-                    className="w-48 h-72 object-cover rounded-md mb-2"
-                  />
-                  <h3 className="text-lg font-semibold">{movie.title}</h3>
-                  <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        </TabsContent>
-        <TabsContent value={MovieCategory.HOLLYWOOD} className="p-0">
-          {/* Blockbuster Listings */}
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold mb-2">Hollywood Movies</h2>
-            <div className="flex overflow-x-auto space-x-4">
-              {filteredMovies.map((movie) => (
-                <div
-                  key={movie.id}
-                  className="w-64 min-w-64 cursor-pointer"
-                  onClick={() => handleMovieSelection(movie.id)}
-                >
-                  <img
-                    src={`/posters/${movie.posterUrl}`}
-                    alt={movie.title}
-                    className="w-48 h-72 object-cover rounded-md mb-2"
-                  />
-                  <h3 className="text-lg font-semibold">{movie.title}</h3>
-                  <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        </TabsContent>
-         <TabsContent value={MovieCategory.BOLLYWOOD} className="p-0">
-          {/* Blockbuster Listings */}
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold mb-2">Bollywood Movies</h2>
-            <div className="flex overflow-x-auto space-x-4">
-              {filteredMovies.map((movie) => (
-                <div
-                  key={movie.id}
-                  className="w-64 min-w-64 cursor-pointer"
-                  onClick={() => handleMovieSelection(movie.id)}
-                >
-                  <img
-                    src={`/posters/${movie.posterUrl}`}
-                    alt={movie.title}
-                    className="w-48 h-72 object-cover rounded-md mb-2"
-                  />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredMovies(MovieCategory.BLOCKBUSTER).map((movie) => (
+                <div key={movie.id} className="cursor-pointer" onClick={() => handleMovieSelection(movie.id)}>
+                  <img src={`/posters/${movie.posterUrl}`} alt={movie.title} className="w-full h-auto rounded-md mb-2" />
                   <h3 className="text-lg font-semibold">{movie.title}</h3>
                   <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
                 </div>
