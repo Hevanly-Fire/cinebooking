@@ -41,7 +41,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '1',
       title: 'Oppenheimer',
-      posterUrl: 'https://picsum.photos/440/660',
+      posterUrl: 'Oppenheimer.jpg',
       showtimes: ['14:00', '16:30', '19:00'],
       genre: 'Biographical Drama',
       category: 'blockbuster',
@@ -49,7 +49,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '2',
       title: 'Barbie',
-      posterUrl: 'https://picsum.photos/441/660',
+      posterUrl: 'Barbie.jpg',
       showtimes: ['15:00', '17:30', '20:00'],
       genre: 'Comedy',
       category: 'blockbuster',
@@ -57,7 +57,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '3',
       title: 'The Shawshank Redemption',
-      posterUrl: 'https://picsum.photos/442/660',
+      posterUrl: 'TheShawshankRedemption.jpg',
       showtimes: ['13:00', '15:30', '18:00'],
       genre: 'Drama',
       category: 'available',
@@ -65,7 +65,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '4',
       title: 'The Dark Knight',
-      posterUrl: 'https://picsum.photos/443/660',
+      posterUrl: 'TheDarkKnight.jpg',
       showtimes: ['16:00', '18:30', '21:00'],
       genre: 'Action',
       category: 'available',
@@ -73,7 +73,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '5',
       title: 'Pulp Fiction',
-      posterUrl: 'https://picsum.photos/444/660',
+      posterUrl: 'PulpFiction.jpg',
       showtimes: ['14:30', '17:00', '19:30'],
       genre: 'Crime',
       category: 'available',
@@ -81,7 +81,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '6',
       title: 'Forrest Gump',
-      posterUrl: 'https://picsum.photos/445/660',
+      posterUrl: 'ForrestGump.jpg',
       showtimes: ['15:30', '18:00', '20:30'],
       genre: 'Drama',
       category: 'available',
@@ -89,7 +89,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '7',
       title: 'Inception',
-      posterUrl: 'https://picsum.photos/446/660',
+      posterUrl: 'Inception.jpg',
       showtimes: ['13:30', '16:00', '18:30'],
       genre: 'Sci-Fi',
       category: 'available',
@@ -97,7 +97,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '8',
       title: 'The Matrix',
-      posterUrl: 'https://picsum.photos/447/660',
+      posterUrl: 'TheMatrix.jpg',
       showtimes: ['17:00', '19:30', '22:00'],
       genre: 'Sci-Fi',
       category: 'available',
@@ -105,7 +105,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '9',
       title: 'Goodfellas',
-      posterUrl: 'https://picsum.photos/448/660',
+      posterUrl: 'Goodfellas.jpg',
       showtimes: ['16:30', '19:00', '21:30'],
       genre: 'Crime',
       category: 'available',
@@ -113,7 +113,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '10',
       title: 'The Lord of the Rings: The Fellowship of the Ring',
-      posterUrl: 'https://picsum.photos/449/660',
+      posterUrl: 'TheLordOfTheRingsTheFellowshipOfTheRing.jpg',
       showtimes: ['14:00', '17:30', '21:00'],
       genre: 'Fantasy',
       category: 'available',
@@ -121,7 +121,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '11',
       title: 'Interstellar',
-      posterUrl: 'https://picsum.photos/450/660',
+      posterUrl: 'Interstellar.jpg',
       showtimes: ['13:00', '16:30', '20:00'],
       genre: 'Sci-Fi',
       category: 'available',
@@ -129,7 +129,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '12',
       title: 'Parasite',
-      posterUrl: 'https://picsum.photos/451/660',
+      posterUrl: 'Parasite.jpg',
       showtimes: ['15:00', '18:30', '22:00'],
       genre: 'Thriller',
       category: 'available',
@@ -137,7 +137,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '13',
       title: 'Avatar 2',
-      posterUrl: 'https://picsum.photos/452/660',
+      posterUrl: 'Avatar2.jpg',
       showtimes: ['15:00', '18:30', '22:00'],
        genre: 'Action, Sci-Fi, Adventure',
       category: 'coming',
@@ -145,7 +145,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '14',
       title: 'Mission Impossible 8',
-      posterUrl: 'https://picsum.photos/453/660',
+      posterUrl: 'MissionImpossible8.jpg',
       showtimes: ['15:00', '18:30', '22:00'],
       genre: 'Action, Thriller, Adventure',
       category: 'coming',
@@ -153,7 +153,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '15',
       title: 'Oppenheimer',
-      posterUrl: 'https://picsum.photos/454/660',
+      posterUrl: 'Oppenheimer.jpg',
       showtimes: ['14:00', '16:30', '19:00'],
       genre: 'Historical Drama',
       category: 'available',
@@ -161,7 +161,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '16',
       title: 'Inception',
-      posterUrl: 'https://picsum.photos/455/660',
+      posterUrl: 'Inception.jpg',
       showtimes: ['13:30', '16:00', '18:30'],
       genre: 'Sci-Fi Action',
       category: 'available',
