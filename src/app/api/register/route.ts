@@ -1,3 +1,5 @@
+'use server';
+
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
@@ -27,12 +29,16 @@ export async function POST(req: Request) {
 
     await newUser.save();
 
-    return NextResponse.json({ message: "User registered." }, { status: 201 });
-  } catch (error) {
+    return NextResponse.json({ message: "User registered successfully" }, { status: 201, headers: {
+      'Content-Type': 'application/json'
+    } });
+  } catch (error: any) {
     console.error("Registration error:", error);
     return NextResponse.json(
-      { message: "Registration failed" },
-      { status: 500 }
+      { message: "Registration failed", error: error.message },
+      { status: 500, headers: {
+        'Content-Type': 'application/json'
+      } }
     );
   }
 }

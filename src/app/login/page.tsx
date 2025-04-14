@@ -28,7 +28,7 @@ const Login = () => {
       if (res?.error) {
         toast({
           title: "Error",
-          description: "Invalid Credentials",
+          description: res.error,
           variant: "destructive",
         });
         return;
