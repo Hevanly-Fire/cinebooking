@@ -68,6 +68,11 @@ export const authOptions = {
       return session
     }
   },
+  pages: {
+    signIn: '/login',  // Specify the custom sign-in page
+    signOut: '/',     // Specify the custom sign-out page
+    error: '/login', // Specify the custom error page
+  }
 };
 
 const handler = NextAuth(authOptions);
