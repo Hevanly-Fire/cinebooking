@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['picsum.photos'],
   },
+  experimental: {
+    appDir: true,
+  }
 };
 
 export default nextConfig;
