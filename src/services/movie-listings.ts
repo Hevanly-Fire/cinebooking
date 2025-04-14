@@ -65,7 +65,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '4',
       title: 'The Dark Knight',
-      posterUrl: 'TheDarkKnight.jpg',
+      posterUrl: '2.jpg',
       showtimes: ['16:00', '18:30', '21:00'],
       genre: 'Action',
       category: 'available',
@@ -73,7 +73,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '5',
       title: 'Pulp Fiction',
-      posterUrl: 'PulpFiction.jpg',
+      posterUrl: '3.jpg',
       showtimes: ['14:30', '17:00', '19:30'],
       genre: 'Crime',
       category: 'available',
@@ -145,7 +145,7 @@ export async function getMovies(): Promise<Movie[]> {
     {
       id: '14',
       title: 'Mission Impossible 8',
-      posterUrl: 'MissionImpossible8.jpg',
+      posterUrl: '14.jpg',
       showtimes: ['15:00', '18:30', '22:00'],
       genre: 'Action, Thriller, Adventure',
       category: 'coming',

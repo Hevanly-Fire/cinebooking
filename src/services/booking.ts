@@ -1,7 +1,9 @@
+'use server';
+
 /**
  * Represents a booking with its details.
  */
-export interface Booking {
+export interface BookingType {
   /**
    * The movie ID for the booking.
    */
@@ -18,6 +20,11 @@ export interface Booking {
    * The total cost of the booking.
    */
   totalCost: number;
+
+  /**
+   * The seats booked
+   */
+  seats: string[];
 }
 
 /**
@@ -33,6 +40,9 @@ export interface Availability {
    */
   pricePerTicket: number;
 }
+
+import dbConnect from '@/lib/mongodb';
+import Booking from '@/models/Booking';
 
 /**
  * Asynchronously retrieves the availability and price information for a given movie and showtime.
@@ -56,19 +66,31 @@ export async function getAvailability(movieId: string, showtime: string): Promis
  *
  * @param movieId The ID of the movie.
  * @param showtime The selected showtime.
- * @param numberOfTickets The number of tickets to book.
+ * @param seats The seats to book.
  * @returns A promise that resolves to a Booking object.
  */
-export async function bookTickets(movieId: string, showtime: string, numberOfTickets: number): Promise<Booking> {
-  // TODO: Implement this by calling an API.
+export async function bookTickets(movieId: string, showtime: string, seats: string[]): Promise<BookingType> {
+  await dbConnect();
 
   const { pricePerTicket } = await getAvailability(movieId, showtime);
+  const numberOfTickets = seats.length;
   const totalCost = numberOfTickets * pricePerTicket;
+
+  const booking = new Booking({
+    movieId,
+    showtime,
+    numberOfTickets,
+    totalCost,
+    seats,
+  });
+
+  await booking.save();
 
   return {
     movieId,
     showtime,
     numberOfTickets,
     totalCost,
+    seats,
   };
 }

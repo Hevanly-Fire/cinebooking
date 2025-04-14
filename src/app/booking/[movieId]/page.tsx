@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from 'react';
 import {getMovies, Movie} from '@/services/movie-listings';
-import {bookTickets} from '@/services/booking';
+import {bookTickets, BookingType} from '@/services/booking';
 import {Button} from '@/components/ui/button';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {Card, CardContent, CardHeader, CardTitle, CardFooter} from '@/components/ui/card';
@@ -17,8 +17,7 @@ export default function BookingPage() {
   const router = useRouter();
   const [movie, setMovie] = useState<Movie | null>(null);
   const [selectedShowtime, setSelectedShowtime] = useState<string | null>(null);
-  const [numberOfTickets, setNumberOfTickets] = useState<number>(1);
-  const [bookingSummary, setBookingSummary] = useState<any>(null);
+  const [bookingSummary, setBookingSummary] = useState<BookingType | null>(null);
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
 
   useEffect(() => {
@@ -38,16 +37,10 @@ export default function BookingPage() {
     setBookingSummary(null);
   };
 
-  const handleTicketNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(event.target.value);
-    setNumberOfTickets(value > 0 ? value : 1);
-    setBookingSummary(null);
-  };
-
   const handleBookTickets = async () => {
     if (movie && selectedShowtime && selectedSeats.length > 0) {
       try {
-        const booking = await bookTickets(movie.id, selectedShowtime, selectedSeats.length);
+        const booking = await bookTickets(movie.id, selectedShowtime, selectedSeats);
         setBookingSummary(booking);
         toast({
           title: 'Success',
@@ -199,7 +192,7 @@ export default function BookingPage() {
               <p>Movie: {movie.title}</p>
               <p>Showtime: {bookingSummary.showtime}</p>
               <p>Number of Tickets: {bookingSummary.numberOfTickets}</p>
-              <p>Seats: {selectedSeats.join(', ')}</p>
+              <p>Seats: {bookingSummary.seats.join(', ')}</p>
             </CardContent>
             <CardFooter>
               <p className="text-lg font-semibold">Total Cost: ${bookingSummary.totalCost}</p>
