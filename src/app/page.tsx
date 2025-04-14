@@ -1,7 +1,7 @@
 'use client';
 
 import {useEffect, useState} from 'react';
-import {getMovies, Movie} from '@/services/movie-listings';
+import {getMovies, Movie, MovieCategory} from '@/services/movie-listings';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter} from '@/components/ui/card';
 import {suggestSimilarMovies} from '@/ai/flows/suggest-similar-movies';
@@ -17,7 +17,7 @@ export default function Home() {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [similarMovies, setSimilarMovies] = useState<string[]>([]);
   const [isLoadingSimilarMovies, setIsLoadingSimilarMovies] = useState(false);
-  const [activeTab, setActiveTab] = useState('available');
+  const [activeTab, setActiveTab] = useState(MovieCategory.AVAILABLE);
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -65,12 +65,16 @@ export default function Home() {
   };
 
   const filteredMovies = movies.filter((movie) => {
-    if (activeTab === 'available') {
-      return movie.category === 'available';
-    } else if (activeTab === 'coming') {
-      return movie.category === 'coming';
-    } else if (activeTab === 'blockbuster') {
-      return movie.category === 'blockbuster';
+    if (activeTab === MovieCategory.AVAILABLE) {
+      return movie.category === MovieCategory.AVAILABLE;
+    } else if (activeTab === MovieCategory.COMING) {
+      return movie.category === MovieCategory.COMING;
+    } else if (activeTab === MovieCategory.BLOCKBUSTER) {
+      return movie.category === MovieCategory.BLOCKBUSTER;
+    } else if (activeTab === MovieCategory.HOLLYWOOD) {
+      return movie.category === MovieCategory.HOLLYWOOD
+    } else if (activeTab === MovieCategory.BOLLYWOOD) {
+      return movie.category === MovieCategory.BOLLYWOOD
     }
     return true;
   });
@@ -99,11 +103,13 @@ export default function Home() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-4">
         <TabsList>
-          <TabsTrigger value="available">Available Movies</TabsTrigger>
-          <TabsTrigger value="coming">Coming Soon</TabsTrigger>
-          <TabsTrigger value="blockbuster">Blockbusters</TabsTrigger>
+          <TabsTrigger value={MovieCategory.AVAILABLE}>Available Movies</TabsTrigger>
+          <TabsTrigger value={MovieCategory.COMING}>Coming Soon</TabsTrigger>
+          <TabsTrigger value={MovieCategory.BLOCKBUSTER}>Blockbusters</TabsTrigger>
+           <TabsTrigger value={MovieCategory.HOLLYWOOD}>Hollywood</TabsTrigger>
+            <TabsTrigger value={MovieCategory.BOLLYWOOD}>Bollywood</TabsTrigger>
         </TabsList>
-        <TabsContent value="available" className="p-0">
+        <TabsContent value={MovieCategory.AVAILABLE} className="p-0">
           {/* Movie Listings */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-2">Available Movies</h2>
@@ -126,7 +132,7 @@ export default function Home() {
             </div>
           </section>
         </TabsContent>
-        <TabsContent value="coming" className="p-0">
+        <TabsContent value={MovieCategory.COMING} className="p-0">
           {/* Coming Soon Listings */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-2">Coming Soon</h2>
@@ -149,10 +155,56 @@ export default function Home() {
             </div>
           </section>
         </TabsContent>
-        <TabsContent value="blockbuster" className="p-0">
+        <TabsContent value={MovieCategory.BLOCKBUSTER} className="p-0">
           {/* Blockbuster Listings */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-2">Blockbusters</h2>
+            <div className="flex overflow-x-auto space-x-4">
+              {filteredMovies.map((movie) => (
+                <div
+                  key={movie.id}
+                  className="w-64 min-w-64 cursor-pointer"
+                  onClick={() => handleMovieSelection(movie.id)}
+                >
+                  <img
+                    src={`/posters/${movie.posterUrl}`}
+                    alt={movie.title}
+                    className="w-48 h-72 object-cover rounded-md mb-2"
+                  />
+                  <h3 className="text-lg font-semibold">{movie.title}</h3>
+                  <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </TabsContent>
+        <TabsContent value={MovieCategory.HOLLYWOOD} className="p-0">
+          {/* Blockbuster Listings */}
+          <section className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">Hollywood Movies</h2>
+            <div className="flex overflow-x-auto space-x-4">
+              {filteredMovies.map((movie) => (
+                <div
+                  key={movie.id}
+                  className="w-64 min-w-64 cursor-pointer"
+                  onClick={() => handleMovieSelection(movie.id)}
+                >
+                  <img
+                    src={`/posters/${movie.posterUrl}`}
+                    alt={movie.title}
+                    className="w-48 h-72 object-cover rounded-md mb-2"
+                  />
+                  <h3 className="text-lg font-semibold">{movie.title}</h3>
+                  <p className="text-sm text-muted-foreground">Showtimes: {movie.showtimes.join(', ')}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </TabsContent>
+         <TabsContent value={MovieCategory.BOLLYWOOD} className="p-0">
+          {/* Blockbuster Listings */}
+          <section className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">Bollywood Movies</h2>
             <div className="flex overflow-x-auto space-x-4">
               {filteredMovies.map((movie) => (
                 <div

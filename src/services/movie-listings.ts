@@ -26,7 +26,15 @@ export interface Movie {
   /**
    * The category of the movie
    */
-  category: string;
+  category: MovieCategory;
+}
+
+export enum MovieCategory {
+  AVAILABLE = 'available',
+  COMING = 'coming',
+  BLOCKBUSTER = 'blockbuster',
+  HOLLYWOOD = 'hollywood',
+  BOLLYWOOD = 'bollywood',
 }
 
 /**
@@ -44,7 +52,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'Oppenheimer.jpg',
       showtimes: ['14:00', '16:30', '19:00'],
       genre: 'Biographical Drama',
-      category: 'blockbuster',
+      category: MovieCategory.HOLLYWOOD,
     },
     {
       id: '2',
@@ -52,7 +60,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'Barbie.jpg',
       showtimes: ['15:00', '17:30', '20:00'],
       genre: 'Comedy',
-      category: 'blockbuster',
+      category: MovieCategory.HOLLYWOOD,
     },
     {
       id: '3',
@@ -60,7 +68,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'TheShawshankRedemption.jpg',
       showtimes: ['13:00', '15:30', '18:00'],
       genre: 'Drama',
-      category: 'available',
+      category: MovieCategory.AVAILABLE,
     },
     {
       id: '4',
@@ -68,7 +76,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: '2.jpg',
       showtimes: ['16:00', '18:30', '21:00'],
       genre: 'Action',
-      category: 'available',
+      category: MovieCategory.AVAILABLE,
     },
     {
       id: '5',
@@ -76,7 +84,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: '3.jpg',
       showtimes: ['14:30', '17:00', '19:30'],
       genre: 'Crime',
-      category: 'available',
+      category: MovieCategory.AVAILABLE,
     },
     {
       id: '6',
@@ -84,7 +92,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'ForrestGump.jpg',
       showtimes: ['15:30', '18:00', '20:30'],
       genre: 'Drama',
-      category: 'available',
+      category: MovieCategory.AVAILABLE,
     },
     {
       id: '7',
@@ -92,7 +100,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'Inception.jpg',
       showtimes: ['13:30', '16:00', '18:30'],
       genre: 'Sci-Fi',
-      category: 'available',
+      category: MovieCategory.AVAILABLE,
     },
     {
       id: '8',
@@ -100,7 +108,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'TheMatrix.jpg',
       showtimes: ['17:00', '19:30', '22:00'],
       genre: 'Sci-Fi',
-      category: 'available',
+      category: MovieCategory.AVAILABLE,
     },
     {
       id: '9',
@@ -108,7 +116,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'Goodfellas.jpg',
       showtimes: ['16:30', '19:00', '21:30'],
       genre: 'Crime',
-      category: 'available',
+      category: MovieCategory.AVAILABLE,
     },
     {
       id: '10',
@@ -116,7 +124,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'TheLordOfTheRingsTheFellowshipOfTheRing.jpg',
       showtimes: ['14:00', '17:30', '21:00'],
       genre: 'Fantasy',
-      category: 'available',
+      category: MovieCategory.AVAILABLE,
     },
     {
       id: '11',
@@ -124,7 +132,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'Interstellar.jpg',
       showtimes: ['13:00', '16:30', '20:00'],
       genre: 'Sci-Fi',
-      category: 'available',
+      category: MovieCategory.AVAILABLE,
     },
     {
       id: '12',
@@ -132,7 +140,31 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'Parasite.jpg',
       showtimes: ['15:00', '18:30', '22:00'],
       genre: 'Thriller',
-      category: 'available',
+      category: MovieCategory.AVAILABLE,
+    },
+     {
+      id: '17',
+      title: 'Dilwale Dulhania Le Jayenge',
+      posterUrl: 'ddlj.jpg',
+      showtimes: ['14:00', '17:00', '20:00'],
+      genre: 'Romance, Drama',
+      category: MovieCategory.BOLLYWOOD,
+    },
+    {
+      id: '18',
+      title: '3 Idiots',
+      posterUrl: '3idiots.jpg',
+      showtimes: ['13:00', '16:00', '19:00'],
+      genre: 'Comedy, Drama',
+      category: MovieCategory.BOLLYWOOD,
+    },
+    {
+      id: '19',
+      title: 'Sholay',
+      posterUrl: 'sholay.jpg',
+      showtimes: ['15:00', '18:00', '21:00'],
+      genre: 'Action, Adventure',
+      category: MovieCategory.BOLLYWOOD,
     },
     {
       id: '13',
@@ -140,7 +172,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'Avatar2.jpg',
       showtimes: ['15:00', '18:30', '22:00'],
        genre: 'Action, Sci-Fi, Adventure',
-      category: 'coming',
+      category: MovieCategory.COMING,
     },
     {
       id: '14',
@@ -148,7 +180,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: '14.jpg',
       showtimes: ['15:00', '18:30', '22:00'],
       genre: 'Action, Thriller, Adventure',
-      category: 'coming',
+      category: MovieCategory.COMING,
     },
     {
       id: '15',
@@ -156,7 +188,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'Oppenheimer.jpg',
       showtimes: ['14:00', '16:30', '19:00'],
       genre: 'Historical Drama',
-      category: 'available',
+      category: MovieCategory.BLOCKBUSTER,
     },
     {
       id: '16',
@@ -164,7 +196,7 @@ export async function getMovies(): Promise<Movie[]> {
       posterUrl: 'Inception.jpg',
       showtimes: ['13:30', '16:00', '18:30'],
       genre: 'Sci-Fi Action',
-      category: 'available',
+      category: MovieCategory.BLOCKBUSTER,
     },
   ];
 }
