@@ -6,6 +6,7 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter"
 import clientPromise from "@/lib/mongodb";
 import User from "@/models/User";
 import dbConnect from "@/lib/mongodb";
+import {NextResponse} from "next/server";
 
 export const authOptions = {
   providers: [
@@ -24,22 +25,23 @@ export const authOptions = {
             email: credentials.email,
           });
 
-          if (user) {
-            const isPasswordCorrect = await bcrypt.compare(
-              credentials.password,
-              user.password
-            );
-
-            if (isPasswordCorrect) {
-              return user;
-            } else {
-              throw new Error("Wrong Credentials!");
-            }
-          } else {
-            throw new Error("User not found!");
+          if (!user) {
+            return null; // User not found, NextAuth will handle the error
           }
+
+          const isPasswordCorrect = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+
+          if (!isPasswordCorrect) {
+            return null; // Password incorrect, NextAuth will handle the error
+          }
+
+          return user;
         } catch (err: any) {
-          throw new Error(err);
+          console.error("Authentication error:", err);
+          return null; // Let NextAuth handle error (don't throw)
         }
       },
     }),
@@ -50,6 +52,22 @@ export const authOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   debug: true,
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      return true; // Return true to allow sign-in
+    },
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token
+      }
+      return token
+    },
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token from a provider.
+      //session.accessToken = token.accessToken
+      return session
+    }
+  },
 };
 
 const handler = NextAuth(authOptions);

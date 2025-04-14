@@ -8,12 +8,12 @@ export async function POST(req: Request) {
     const { email, password } = await req.json();
 
     if (!email || !password) {
-      return new NextResponse("Missing email or password", { status: 400 });
+      return NextResponse.json({ message: "Missing email or password" }, { status: 400 });
     }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return new NextResponse("Email is already taken", { status: 400 });
+      return NextResponse.json({ message: "Email is already taken" }, { status: 400 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
