@@ -139,7 +139,7 @@ export async function getMovies(): Promise<Movie[]> {
       title: 'Avatar 2',
       posterUrl: 'Avatar2.jpg',
       showtimes: ['15:00', '18:30', '22:00'],
-      genre: 'Sci-Fi',
+       genre: 'Action, Sci-Fi, Adventure',
       category: 'coming',
     },
     {
@@ -147,8 +147,9 @@ export async function getMovies(): Promise<Movie[]> {
       title: 'Mission Impossible 8',
       posterUrl: 'MissionImpossible8.jpg',
       showtimes: ['15:00', '18:30', '22:00'],
-      genre: 'Thriller',
+      genre: 'Action, Thriller, Adventure',
       category: 'coming',
     },
   ];
 }
+
