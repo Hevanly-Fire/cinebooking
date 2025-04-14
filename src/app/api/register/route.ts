@@ -11,14 +11,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Missing email or password" }, { status: 400 });
     }
 
+    await dbConnect();
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json({ message: "Email is already taken" }, { status: 400 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    await dbConnect();
 
     const newUser = new User({
       email,
